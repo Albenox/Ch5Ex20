@@ -16,7 +16,6 @@ using namespace std;
 int randomNumber;
 int guess;
 int guessCount;
-vector <int> scoreHistory;
 
 void inputCheck(int& guess, int& randomNumber, int& guessCount);
 void randomGenerator(int& randomNumber);

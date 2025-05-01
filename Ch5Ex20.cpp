@@ -13,15 +13,20 @@
 
 using namespace std; 
 
+//Declares global variables
 int randomNumber;
 int guess;
 int guessCount;
 vector <int> scoreHistory;
+string name;
 
 void displayMenu();
 void randomGenerator(int& randomNumber);
 
 int main() {
+    cout << "What is your name? " << endl;
+    cin >> name;
+
     int input;
     int i = 0;
     while (true) {
@@ -38,13 +43,14 @@ int main() {
             //Case to check existing sessions
         case 1:
             cout << endl << "Session History Selected " << endl << endl;
+            //Checks to see if the list is empty, providing a relevant response if it is
             if (scoreHistory.empty() == 1) {
                 cout << "No session history found!" << endl << "Sessions played will be displayed here with their scores, playing sessions should fill this with all previous games played. " << endl << endl;
                 break;
             }
             else {
                 while (i < scoreHistory.size()) {
-                    cout << "Your score for session " << i + 1 << " was a " << guessCount << scoreHistory[i] << endl;
+                    cout << name << " scored for session " << i + 1 << " a " << guessCount << scoreHistory[i] << endl;
                     i++;
                 }
                 cout << endl;
@@ -58,18 +64,22 @@ int main() {
             cout << "Guess a number between 0 and 100: " << endl;
             cin >> guess;
 
+            //Checks to see if the guess does not equal the random number generated
             while (guess != randomNumber) {
+                //Checks to see if the guess is lower than the random number
                 if (guess < randomNumber && !cin.fail()) {
                     cout << "Too low, try again: " << endl;
                     guessCount++;
                     cin >> guess;
                 }
+                //Checks to see if the guess is higher than the random number
                 else if (guess > randomNumber && !cin.fail()) {
                     cout << "Too high, try again: " << endl;
                     guessCount++;
                     cin >> guess;
                 }
                 else {
+                    //Checks to see if the input is not a valid input
                     while (cin.fail()) {
                         cin.clear(); // Clear error flags
                         cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
@@ -78,14 +88,16 @@ int main() {
                     }
                 }
             }
+            //Runs this after the while loop finishes, meaning the number guessed was correct
             cout << endl << "Correct Answer!" << endl;
-            cout << "Score: " << guessCount << endl;
+            cout << name << " scored: " << guessCount << endl;
             scoreHistory.push_back(guessCount);
             break;
 
             //Case to clear all previous sessions from memory
         case 3:
             cout << endl << "Clear Previous Sessions Selected" << endl << endl;
+            //Checks to see if the list is empty, providing a relevant response if it is
             if (scoreHistory.empty() == 1) {
                 cout << "No history found to be cleared!" << endl;
             }
@@ -106,6 +118,7 @@ int main() {
             break;
 
         default:
+            //Checks to see if the input is not a valid input
             if (cin.fail() || input < 1 || input > 4) {
                 cin.clear(); // Clear error flags
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
@@ -115,6 +128,7 @@ int main() {
     }  
 }
 
+//A repeatable function for displaying the menu options
 void displayMenu(){
     cout << endl;
     cout << "Enter 1-4 for the following options listed below: " << endl;
@@ -124,6 +138,7 @@ void displayMenu(){
     cout << "4. Exit Program " << endl << endl;
 }
 
+//Generates the random number for a game session
 void randomGenerator(int& randomNumber) {
     srand(time(0));
     randomNumber = (rand() % 100);

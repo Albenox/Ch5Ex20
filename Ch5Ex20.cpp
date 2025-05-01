@@ -11,7 +11,7 @@
 #include <time.h>
 #include <vector>
 
-using namespace std;
+using namespace std; 
 
 int randomNumber;
 int guess;

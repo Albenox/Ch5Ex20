@@ -31,8 +31,7 @@ int main() {
 
     //Runs the code once the correct answer is given, outside the while loop
     cout << endl << "Correct Answer!" << endl;
-    cout << "Score: " << guessCount << endl;
-    scoreHistory.push_back(guessCount);         
+    cout << "Score: " << guessCount << endl;  
 }
 
 

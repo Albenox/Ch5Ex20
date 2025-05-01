@@ -10,6 +10,7 @@
 #include <random>
 #include <time.h>
 #include <vector>
+#include <string>
 
 using namespace std; 
 
@@ -25,7 +26,7 @@ void randomGenerator(int& randomNumber);
 
 int main() {
     cout << "What is your name? " << endl;
-    cin >> name;
+    getline(cin,name);
 
     int input;
     int i = 0;

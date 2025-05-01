@@ -18,7 +18,7 @@ int guess;
 int guessCount;
 vector <int> scoreHistory;
 
-void displayMenu();
+void inputCheck(int& guess, int& randomNumber, int& guessCount);
 void randomGenerator(int& randomNumber);
 
 int main() {
@@ -28,38 +28,40 @@ int main() {
   cout << "Guess a number between 0 and 100: " << endl;
   cin >> guess;
 
-  while (guess != randomNumber) {
-    if (guess < randomNumber && !cin.fail()) {
-        cout << "Too low, try again: " << endl;
-        guessCount++;
-        cin >> guess;
-   }
-    else if (guess > randomNumber && !cin.fail()) {
-         cout << "Too high, try again: " << endl;
-         guessCount++;
-         cin >> guess;
-   }
-   else {
-         while (cin.fail()) {
-            cin.clear(); // Clear error flags
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
-            cout << "The input provided is invalid, please enter a valid input: " << endl;
-            cin >> guess;
-         }
-   }
-  }
+  inputCheck(guess, randomNumber, guessCount);
+
+    //Runs the code once the correct answer is given, outside the while loop
     cout << endl << "Correct Answer!" << endl;
     cout << "Score: " << guessCount << endl;
     scoreHistory.push_back(guessCount);         
 }
 
-void displayMenu(){
-    cout << endl;
-    cout << "Enter 1-4 for the following options listed below: " << endl;
-    cout << "1. Check Session History " << endl;
-    cout << "2. Create New Session " << endl;
-    cout << "3. Clear All Previous Session Memory " << endl;
-    cout << "4. Exit Program " << endl << endl;
+
+void inputCheck(int& guess, int& randomNumber, int& guessCount) {
+    //Makes a while loop happen if the guess does not equal the random generated number
+    while (guess != randomNumber) {
+        // Checks to see if the guess is lower than the number
+        if (guess < randomNumber && !cin.fail()) {
+            cout << "Too low, try again: " << endl;
+            guessCount++;
+            cin >> guess;
+        }
+        // Checks to see if the guess is higher than the number
+        else if (guess > randomNumber && !cin.fail()) {
+            cout << "Too high, try again: " << endl;
+            guessCount++;
+            cin >> guess;
+        }
+        else {
+            // Checks to see if the guess input is invalid
+            while (cin.fail()) {
+                cin.clear(); // Clear error flags
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+                cout << "The input provided is invalid, please enter a valid input: " << endl;
+                cin >> guess;
+            }
+        }
+    }
 }
 
 void randomGenerator(int& randomNumber) {
